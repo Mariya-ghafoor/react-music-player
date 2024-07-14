@@ -7,7 +7,6 @@ function Player() {
   const [currentTrack, setCurrentTrack] = useState(tracks[0]);
 
   const audioRef = useRef();
-  console.log(audioRef);
 
   return (
     <div>

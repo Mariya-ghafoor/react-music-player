@@ -5,9 +5,6 @@ import "./App.css";
 import Player from "./components/Player";
 
 function App() {
-  useEffect(() => {
-    console.log("in useEffect of App");
-  }, []);
   return (
     <>
       <Player />
