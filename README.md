@@ -6,11 +6,11 @@
 
 ### Landing Page
 
-![Landing page](/landing.png "Landing page")
+![Landing page](./public/landing.png "Landing page")
 
 ### Music Player
 
-![Add-employee page](/music_player.png "Music player page")
+![Add-employee page](./public/music_player.png "Music player page")
 
 ## Purpose
 
