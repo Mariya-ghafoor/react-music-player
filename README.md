@@ -2,6 +2,16 @@
 
 -Live:
 
+## Demo
+
+### Landing Page
+
+![Landing page](/landing.png "Landing page")
+
+### Music Player
+
+![Add-employee page](/music_player.png "Music player page")
+
 ## Purpose
 
 - The purpose was to create a music player app in React
