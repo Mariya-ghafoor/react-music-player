@@ -1,0 +1,22 @@
+.landing__main {
+  height: 90%;
+  width: 100%;
+
+  background-color: black;
+  color: #f5e8c7;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 2rem;
+
+  padding: 50px;
+}
+
+.landing__spinner {
+  display: flex;
+}
