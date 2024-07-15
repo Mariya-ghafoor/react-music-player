@@ -1,8 +1,24 @@
-# React + Vite
+# React Music Player
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+-Live:
 
-Currently, two official plugins are available:
+## Purpose
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- The purpose was to create a music player app in React
+
+## TechStack
+
+- React + SCSS (for styling)
+
+## Features
+
+- Play button changes to pause button on click
+- Forward skip moves to the next song
+- Backward skip moves to the previous song
+- Volume button turns to mute when clicked
+- Volume bar shows the level of volume as well as changes the volume button to mute button when volume is turned down to zero
+
+## Future Goals
+
+- Add a progress bar
+- Add list of songs to choose from
