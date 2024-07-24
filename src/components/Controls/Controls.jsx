@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   FaPlay,
   FaPause,
@@ -12,21 +12,50 @@ import {
 import { IoIosSkipForward, IoIosSkipBackward } from "react-icons/io";
 
 import styles from "./Controls.module.scss";
-function Controls({ audioRef, setNextTrack, setPreviousTrack }) {
+function Controls({
+  audioRef,
+  progressBarRef,
+  totalDuration,
+  timeProgress,
+  setTimeProgress,
+  setNextTrack,
+  setPreviousTrack,
+}) {
   const [isPlaying, setIsPlaying] = useState(false);
-  //const [showVolumeBar, setShowVolumeBar] = useState(false);
 
   const [volume, setVolume] = useState(60);
   const [isMute, setIsMute] = useState(false);
+  const [showVolumeBar, setShowVolumeBar] = useState(false);
 
   const volumeBarRef = useRef();
+
+  const playAnimationRef = useRef();
+
+  const repeat = useCallback(() => {
+    //console.log("run");
+    const currentTime = audioRef.current.currentTime;
+
+    setTimeProgress(currentTime);
+    //console.log("Time progress in controls ", timeProgress);
+
+    progressBarRef.current.value = currentTime;
+    progressBarRef.current.style.setProperty(
+      "--range-progress",
+      `${(progressBarRef.current.value / totalDuration) * 100}%`
+    );
+
+    playAnimationRef.current = requestAnimationFrame(repeat);
+  }, [audioRef, totalDuration, progressBarRef, setTimeProgress, timeProgress]);
 
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
     } else {
       audioRef.current.pause();
+      //cancelAnimationFrame(playAnimationRef.current);
     }
+
+    playAnimationRef.current = requestAnimationFrame(repeat);
 
     if (isMute) {
       //Setting volume to 0
@@ -41,7 +70,7 @@ function Controls({ audioRef, setNextTrack, setPreviousTrack }) {
     }
 
     //if (volume < 2 && isMute) setIsMute(true);
-  }, [isPlaying, volume, isMute]);
+  }, [isPlaying, volume, isMute, audioRef, repeat]);
 
   const onVolumeClick = () => {
     setIsMute((isMute) => !isMute);
@@ -67,7 +96,11 @@ function Controls({ audioRef, setNextTrack, setPreviousTrack }) {
       <button onClick={onSkipForwardClick}>
         <IoIosSkipForward />
       </button>
-      <button onClick={() => onVolumeClick()}>
+      <button
+        onClick={() => onVolumeClick()}
+        onMouseEnter={() => setShowVolumeBar(true)}
+        onMouseLeave={() => setShowVolumeBar(false)}
+      >
         {isMute ? <FaVolumeMute /> : <FaVolumeUp />}
       </button>
       {/* <button onClick={() => onVolumeClick()}>
@@ -79,18 +112,23 @@ function Controls({ audioRef, setNextTrack, setPreviousTrack }) {
           <FaVolumeUp />
         )}
       </button> */}
-      <input
-        ref={volumeBarRef}
-        type="range"
-        min={0}
-        max={100}
-        value={volume}
-        //onChange={onVolumeBarChange}
-        onChange={(e) => {
-          setIsMute(false);
-          setVolume(e.target.value);
-        }}
-      />
+      {showVolumeBar && (
+        <input
+          className={styles.volume__bar}
+          ref={volumeBarRef}
+          type="range"
+          min={0}
+          max={100}
+          value={volume}
+          //onChange={onVolumeBarChange}
+          onChange={(e) => {
+            setIsMute(false);
+            setVolume(e.target.value);
+          }}
+          onMouseEnter={() => setShowVolumeBar(true)}
+          // onMouseLeave={() => setShowVolumeBar(false)}
+        />
+      )}
     </div>
   );
 }

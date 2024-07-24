@@ -1,21 +1,26 @@
 /* eslint-disable react/prop-types */
 
 import styles from "./DisplayTrack.module.scss";
-function DisplayTrack({ currentTrack, audioRef }) {
+
+function DisplayTrack({
+  currentTrack,
+  audioRef,
+  progressBarRef,
+  setTotalDuration,
+}) {
+  const onLoadedMetadata = () => {
+    const seconds = audioRef.current.duration;
+    setTotalDuration(seconds);
+    progressBarRef.current.max = seconds;
+  };
   return (
     <div className={styles.displayTrack}>
-      <div
-      // style={{
-      //   backgroundImage: `url(${currentTrack.img})`,
-      //   backgroundPosition: "center",
-      //   backgroundSize: "cover",
-      //   backgroundRepeat: "no-repeat",
-      //   height: "100%",
-      //   width: "100%",
-      // }}
-      ></div>
       <h2>{currentTrack.title}</h2>
-      <audio src={currentTrack.src} ref={audioRef} />
+      <audio
+        src={currentTrack.src}
+        ref={audioRef}
+        onLoadedMetadata={onLoadedMetadata}
+      />
     </div>
   );
 }
