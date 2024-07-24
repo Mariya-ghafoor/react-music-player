@@ -33,5 +33,5 @@ Update: Replaced setInterval() with requestAnimationFrame()
 
 ## Future Goals
 
-[x] Add a progress bar
-[] Add list of songs to choose from
+- [x] Add a progress bar
+- [ ] Add list of songs to choose from
